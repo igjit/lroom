@@ -3,6 +3,13 @@ library(imager)
 
 sample_images <- c("parrots", "hubble", "birds", "coins")
 
+load_as_file <- function(name) {
+  outfile <- tempfile(fileext = ".png")
+  image <- load.example(name)
+  save.image(image, outfile)
+  outfile
+}
+
 ui <- fluidPage(
   sidebarLayout(
     sidebarPanel(
@@ -12,11 +19,9 @@ ui <- fluidPage(
 
 server <- function(input, output) {
   output$dist_image <- renderImage({
-    outfile <- tempfile(fileext = ".png")
-    image <- load.example(input$image_name)
-    save.image(image, outfile)
+    image_file <- load_as_file(input$image_name)
 
-    list(src = outfile,
+    list(src = image_file,
          contentType = "image/png",
          width = nrow(image),
          height = ncol(image))
