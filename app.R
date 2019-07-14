@@ -1,4 +1,5 @@
 library(shiny)
+library(imager)
 
 sample_images <- c("parrots", "hubble", "birds", "coins")
 
@@ -11,7 +12,7 @@ ui <- fluidPage(
 
 server <- function(input, output) {
   output$distPlot <- renderPlot({
-    plot(imager::load.example(input$image_name))
+    plot(load.example(input$image_name))
   })
 }
 
