@@ -8,7 +8,8 @@ ui <- fluidPage(
     sidebarPanel(
       selectInput("image_name", "image", sample_images)),
     mainPanel(
-      plotOutput(outputId = "dist_image"))))
+      plotOutput(outputId = "dist_image")),
+    position = "right"))
 
 server <- function(input, output) {
   image <- reactive(load.example(input$image_name))
