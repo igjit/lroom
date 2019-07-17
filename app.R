@@ -11,8 +11,9 @@ ui <- fluidPage(
       plotOutput(outputId = "dist_image"))))
 
 server <- function(input, output) {
+  image <- reactive(load.example(input$image_name))
   output$dist_image <- renderPlot({
-    plot(load.example(input$image_name))
+    plot(image())
   })
 }
 
