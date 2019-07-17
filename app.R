@@ -13,7 +13,7 @@ ui <- fluidPage(
 server <- function(input, output) {
   image <- reactive(load.example(input$image_name))
   output$dist_image <- renderPlot({
-    plot(image())
+    plot(as.raster(image()))
   })
 }
 
