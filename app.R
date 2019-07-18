@@ -8,10 +8,10 @@ sample_images <- c("parrots", "hubble", "birds", "coins")
 ui <- fluidPage(
   sidebarLayout(
     sidebarPanel(
-      plotOutput(outputId = "histogram"),
+      plotOutput("histogram"),
       selectInput("image_name", "image", sample_images)),
     mainPanel(
-      plotOutput(outputId = "dist_image")),
+      plotOutput("dist_image")),
     position = "right"))
 
 server <- function(input, output) {
