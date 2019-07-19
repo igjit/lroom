@@ -9,6 +9,8 @@ ui <- fluidPage(
   sidebarLayout(
     sidebarPanel(
       plotOutput("histogram"),
+      plotOutput("tone_curve"),
+      sliderInput("contrast", "Contrast", -1, 1, 0, step = 0.1),
       selectInput("image_name", "image", sample_images)),
     mainPanel(
       plotOutput("dist_image")),
@@ -26,6 +28,14 @@ server <- function(input, output) {
     ggplot(color_df, aes(x = value, fill = color)) +
       geom_histogram(position = "identity", alpha = 0.5, show.legend = FALSE) +
       scale_fill_manual(values = c(r = "red", g = "green", b = "blue"))
+  })
+  output$tone_curve <- renderPlot({
+    dy <- 0.1 * input$contrast
+    xs <- c(0, 0.25, 0.75, 1.0)
+    ys <- c(0, 0.25 - dy, 0.75 + dy, 1.0)
+    fun <- splinefun(xs, ys)
+    ggplot() +
+      stat_function(aes(x = 0:1), fun = fun)
   })
 }
 
