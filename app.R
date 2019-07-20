@@ -18,6 +18,12 @@ ui <- fluidPage(
 
 server <- function(input, output) {
   image <- reactive(load.example(input$image_name))
+  tone_curve <- reactive({
+    dy <- 0.1 * input$contrast
+    xs <- c(0, 0.25, 0.75, 1.0)
+    ys <- c(0, 0.25 - dy, 0.75 + dy, 1.0)
+    splinefun(xs, ys)
+  })
   output$dist_image <- renderPlot({
     plot(as.raster(image()))
   })
@@ -30,12 +36,8 @@ server <- function(input, output) {
       scale_fill_manual(values = c(r = "red", g = "green", b = "blue"))
   })
   output$tone_curve <- renderPlot({
-    dy <- 0.1 * input$contrast
-    xs <- c(0, 0.25, 0.75, 1.0)
-    ys <- c(0, 0.25 - dy, 0.75 + dy, 1.0)
-    fun <- splinefun(xs, ys)
     ggplot() +
-      stat_function(aes(x = 0:1), fun = fun)
+      stat_function(aes(x = 0:1), fun = tone_curve())
   })
 }
 
