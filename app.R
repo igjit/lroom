@@ -24,11 +24,20 @@ server <- function(input, output) {
     ys <- c(0, 0.25 - dy, 0.75 + dy, 1.0)
     splinefun(xs, ys)
   })
+  adjusted_image <- reactive({
+    ycb_img <- RGBtoYCbCr(image())
+    luma <- ycb_img[,, 1, 1]
+    func <- tone_curve()
+    adjusted <- luma %>% as.vector %>% `/`(256) %>% func %>% matrix(dim(luma))
+    ton_img <- ycb_img
+    ton_img[,, 1, 1] <- adjusted * 256
+    YCbCrtoRGB(ton_img)
+  })
   output$dist_image <- renderPlot({
-    plot(as.raster(image()))
+    plot(as.raster(adjusted_image()))
   })
   output$histogram <- renderPlot({
-    color_df <- image() %>%
+    color_df <- adjusted_image() %>%
       as.data.frame %>%
       mutate(color = c("r", "g", "b")[cc])
     ggplot(color_df, aes(x = value, fill = color)) +
