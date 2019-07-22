@@ -18,11 +18,15 @@ ui <- fluidPage(
 
 server <- function(input, output) {
   image <- reactive(load.example(input$image_name))
-  tone_curve <- reactive({
+  tone_curve_points <- reactive({
     dy <- 0.1 * input$contrast
     xs <- c(0, 0.25, 0.75, 1.0)
     ys <- c(0, 0.25 - dy, 0.75 + dy, 1.0)
-    splinefun(xs, ys)
+    list(x = xs, y = ys)
+  })
+  tone_curve <- reactive({
+    points <- tone_curve_points()
+    splinefun(points$x, points$y)
   })
   adjusted_image <- reactive({
     ycb_img <- RGBtoYCbCr(image())
@@ -45,8 +49,10 @@ server <- function(input, output) {
       scale_fill_manual(values = c(r = "red", g = "green", b = "blue"))
   })
   output$tone_curve <- renderPlot({
+    points <- tone_curve_points()
     ggplot() +
-      stat_function(aes(x = 0:1), fun = tone_curve())
+      stat_function(aes(x = 0:1), fun = tone_curve()) +
+      geom_point(aes(points$x, points$y))
   })
 }
 
