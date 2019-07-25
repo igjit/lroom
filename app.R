@@ -5,6 +5,16 @@ library(ggplot2)
 
 sample_images <- c("parrots", "hubble", "birds", "coins")
 
+reduce_pixel <- function(image, max_width) {
+  w <- width(image)
+  h <- height(image)
+  if (w <= max_width) {
+    image
+  } else {
+    resize(image, max_width, max_width * h / w)
+  }
+}
+
 ui <- fluidPage(
   sidebarLayout(
     sidebarPanel(
@@ -42,6 +52,7 @@ server <- function(input, output) {
   })
   output$histogram <- renderPlot({
     color_df <- adjusted_image() %>%
+      reduce_pixel(100) %>%
       as.data.frame %>%
       mutate(color = c("r", "g", "b")[cc])
     ggplot(color_df, aes(x = value, fill = color)) +
