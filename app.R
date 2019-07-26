@@ -23,7 +23,7 @@ ui <- fluidPage(
       sliderInput("contrast", "Contrast", -1, 1, 0, step = 0.1),
       selectInput("image_name", "image", sample_images)),
     mainPanel(
-      plotOutput("dist_image")),
+      plotOutput("dist_image", height = "100vh")),
     position = "right"))
 
 server <- function(input, output) {
