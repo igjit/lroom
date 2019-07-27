@@ -21,6 +21,7 @@ ui <- fluidPage(
       plotOutput("histogram"),
       plotOutput("tone_curve"),
       sliderInput("contrast", "Contrast", -1, 1, 0, step = 0.1),
+      sliderInput("luminance", "Luminance", -1, 1, 0, step = 0.1),
       selectInput("image_name", "image", sample_images)),
     mainPanel(
       plotOutput("dist_image", height = "100vh")),
@@ -38,7 +39,7 @@ server <- function(input, output) {
     points <- tone_curve_points()
     splinefun(points$x, points$y)
   })
-  adjusted_image <- reactive({
+  tone_image <- reactive({
     ycb_img <- RGBtoYCbCr(image())
     luma <- ycb_img[,, 1, 1]
     func <- tone_curve()
@@ -46,6 +47,12 @@ server <- function(input, output) {
     ton_img <- ycb_img
     ton_img[,, 1, 1] <- adjusted * 256
     YCbCrtoRGB(ton_img)
+  })
+  adjusted_image <- reactive({
+    img <- tone_image()
+    img[img < 0] <- 0
+    img[img > 1] <- 1
+    img ^ (10 ^ -input$luminance)
   })
   output$dist_image <- renderPlot({
     plot(as.raster(adjusted_image()))
