@@ -16,6 +16,13 @@ reduce_pixel <- function(image, max_width) {
 }
 
 ui <- fluidPage(
+  tags$head(
+    tags$style(HTML("
+      .opaque .recalculating {
+        opacity: 1;
+      }
+    "))
+  ),
   sidebarLayout(
     sidebarPanel(
       plotOutput("histogram"),
@@ -25,7 +32,10 @@ ui <- fluidPage(
       selectInput("image_name", "image", sample_images)
     ),
     mainPanel(
-      plotOutput("dist_image", height = "100vh")
+      div(
+        plotOutput("dist_image", height = "100vh"),
+        class = "opaque"
+      )
     ),
     position = "right"
   )
