@@ -18,7 +18,7 @@ reduce_pixel <- function(image, max_width) {
 ui <- fluidPage(
   tags$head(
     tags$style(HTML("
-      .opaque .recalculating {
+      .loading-container .recalculating {
         opacity: 1;
       }
     "))
@@ -34,7 +34,7 @@ ui <- fluidPage(
     mainPanel(
       div(
         plotOutput("dist_image", height = "100vh"),
-        class = "opaque"
+        class = "loading-container"
       )
     ),
     position = "right"
