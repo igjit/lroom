@@ -16,13 +16,7 @@ reduce_pixel <- function(image, max_width) {
 }
 
 ui <- fluidPage(
-  tags$head(
-    tags$style(HTML("
-      .loading-container .recalculating {
-        opacity: 1;
-      }
-    "))
-  ),
+  includeCSS("styles.css"),
   sidebarLayout(
     sidebarPanel(
       plotOutput("histogram"),
