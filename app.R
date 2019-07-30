@@ -28,6 +28,7 @@ ui <- fluidPage(
     mainPanel(
       div(
         plotOutput("dist_image", height = "100vh"),
+        p("loading...", class = "loading-message"),
         class = "loading-container"
       )
     ),
