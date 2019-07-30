@@ -15,6 +15,14 @@ reduce_pixel <- function(image, max_width) {
   }
 }
 
+with_loading_message <- function(ui_element, message) {
+  div(
+    ui_element,
+    p(message, class = "loading-message"),
+    class = "loading-container"
+  )
+}
+
 ui <- fluidPage(
   includeCSS("styles.css"),
   sidebarLayout(
@@ -26,11 +34,8 @@ ui <- fluidPage(
       selectInput("image_name", "image", sample_images)
     ),
     mainPanel(
-      div(
-        plotOutput("dist_image", height = "100vh"),
-        p("loading...", class = "loading-message"),
-        class = "loading-container"
-      )
+      with_loading_message(plotOutput("dist_image", height = "100vh"),
+                           "loading...")
     ),
     position = "right"
   )
