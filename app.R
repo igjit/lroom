@@ -77,7 +77,7 @@ server <- function(input, output) {
       as.data.frame %>%
       mutate(color = c("r", "g", "b")[cc])
     ggplot(color_df, aes(x = value, fill = color)) +
-      geom_histogram(position = "identity", alpha = 0.5, show.legend = FALSE) +
+      geom_histogram(position = "identity", bins = 64, alpha = 0.5, show.legend = FALSE) +
       scale_fill_manual(values = c(r = "red", g = "green", b = "blue"))
   })
   output$tone_curve <- renderPlot({
