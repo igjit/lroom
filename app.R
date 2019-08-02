@@ -3,7 +3,7 @@ library(imager)
 library(dplyr)
 library(ggplot2)
 
-sample_images <- c("parrots", "hubble", "birds", "coins")
+sample_images <- c("parrots", "hubble", "birds")
 
 reduce_pixel <- function(image, max_width) {
   w <- width(image)
