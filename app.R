@@ -31,7 +31,8 @@ ui <- fluidPage(
       plotOutput("tone_curve"),
       sliderInput("contrast", "Contrast", -1, 1, 0, step = 0.1),
       sliderInput("luminance", "Luminance", -1, 1, 0, step = 0.1),
-      selectInput("image_name", "image", sample_images)
+      selectInput("image_name", "image", sample_images),
+      style = "height: 100vh; overflow-y: auto"
     ),
     mainPanel(
       with_loading_message(plotOutput("dist_image", height = "100vh"),
