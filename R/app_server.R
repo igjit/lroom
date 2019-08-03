@@ -1,48 +1,5 @@
-library(shiny)
-library(imager)
-library(dplyr)
-library(ggplot2)
-
-sample_images <- c("parrots", "hubble", "birds")
-
-reduce_pixel <- function(image, max_width) {
-  w <- width(image)
-  h <- height(image)
-  if (w <= max_width) {
-    image
-  } else {
-    resize(image, max_width, max_width * h / w)
-  }
-}
-
-with_loading_message <- function(ui_element, message) {
-  div(
-    ui_element,
-    p(message, class = "loading-message"),
-    class = "loading-container"
-  )
-}
-
-ui <- fluidPage(
-  includeCSS("styles.css"),
-  sidebarLayout(
-    sidebarPanel(
-      plotOutput("histogram"),
-      plotOutput("tone_curve"),
-      sliderInput("contrast", "Contrast", -1, 1, 0, step = 0.1),
-      sliderInput("luminance", "Luminance", -1, 1, 0, step = 0.1),
-      selectInput("image_name", "Image", sample_images),
-      style = "height: 100vh; overflow-y: auto"
-    ),
-    mainPanel(
-      with_loading_message(plotOutput("dist_image", height = "100vh"),
-                           "loading...")
-    ),
-    position = "right"
-  )
-)
-
-server <- function(input, output) {
+#' @import shiny
+app_server <- function(input, output, session) {
   image <- reactive(load.example(input$image_name))
   tone_curve_points <- reactive({
     dy <- 0.1 * input$contrast
@@ -88,5 +45,3 @@ server <- function(input, output) {
       geom_point(aes(points$x, points$y))
   })
 }
-
-shinyApp(ui, server)
