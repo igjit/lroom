@@ -12,5 +12,8 @@ Imports:
     imager,
     dplyr,
     ggplot2,
-    pkgload
+    pkgload,
+    processx
 RoxygenNote: 6.1.1
+Suggests: 
+    testthat
