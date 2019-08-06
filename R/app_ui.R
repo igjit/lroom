@@ -1,15 +1,5 @@
 sample_images <- c("parrots", "hubble", "birds")
 
-reduce_pixel <- function(image, max_width) {
-  w <- width(image)
-  h <- height(image)
-  if (w <= max_width) {
-    image
-  } else {
-    resize(image, max_width, max_width * h / w)
-  }
-}
-
 with_loading_message <- function(ui_element, message) {
   div(
     ui_element,
