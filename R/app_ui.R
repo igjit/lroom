@@ -13,7 +13,7 @@ app_ui <- function() {
   tagList(
     # Leave this function for adding external resources
     golem_add_external_resources(),
-    # List the first level UI elements here 
+    # List the first level UI elements here
     fluidPage(
       sidebarLayout(
         sidebarPanel(
