@@ -39,15 +39,7 @@ app_server <- function(input, output, session) {
   output$dist_image <- renderPlot({
     plot(as.raster(adjusted_image()))
   })
-  output$histogram <- renderPlot({
-    color_df <- adjusted_image() %>%
-      reduce_pixel(100) %>%
-      as.data.frame %>%
-      mutate(color = c("r", "g", "b")[cc])
-    ggplot(color_df, aes(x = value, fill = color)) +
-      geom_histogram(position = "identity", bins = 64, alpha = 0.5, show.legend = FALSE) +
-      scale_fill_manual(values = c(r = "red", g = "green", b = "blue"))
-  })
+  callModule(mod_histogram_server, "histogram_ui_1", adjusted_image)
   output$tone_curve <- renderPlot({
     points <- tone_curve_points()
     ggplot() +

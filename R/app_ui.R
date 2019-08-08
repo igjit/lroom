@@ -17,7 +17,7 @@ app_ui <- function() {
     fluidPage(
       sidebarLayout(
         sidebarPanel(
-          plotOutput("histogram"),
+          mod_histogram_ui("histogram_ui_1"),
           plotOutput("tone_curve"),
           sliderInput("contrast", "Contrast", -1, 1, 0, step = 0.1),
           sliderInput("luminance", "Luminance", -1, 1, 0, step = 0.1),
