@@ -40,10 +40,5 @@ app_server <- function(input, output, session) {
     plot(as.raster(adjusted_image()))
   })
   callModule(mod_histogram_server, "histogram_ui_1", adjusted_image)
-  output$tone_curve <- renderPlot({
-    points <- tone_curve_points()
-    ggplot() +
-      stat_function(aes(x = 0:1), fun = tone_curve()) +
-      geom_point(aes(points$x, points$y))
-  })
+  callModule(mod_tone_curve_server, "tone_curve_ui_1", tone_curve_points, tone_curve)
 }
