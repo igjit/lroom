@@ -1,13 +1,5 @@
 sample_images <- c("parrots", "hubble", "birds")
 
-with_loading_message <- function(ui_element, message) {
-  div(
-    ui_element,
-    p(message, class = "loading-message"),
-    class = "loading-container"
-  )
-}
-
 #' @import shiny
 app_ui <- function() {
   tagList(
