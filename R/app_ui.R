@@ -17,8 +17,7 @@ app_ui <- function() {
           style = "height: 100vh; overflow-y: auto"
         ),
         mainPanel(
-          with_loading_message(plotOutput("dist_image", height = "100vh"),
-                               "loading...")
+          mod_image_ui("image_ui_1")
         ),
         position = "right"
       )

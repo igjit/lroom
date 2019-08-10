@@ -36,9 +36,7 @@ app_server <- function(input, output, session) {
     img[img > 1] <- 1
     img ^ (10 ^ -input$luminance)
   })
-  output$dist_image <- renderPlot({
-    plot(as.raster(adjusted_image()))
-  })
   callModule(mod_histogram_server, "histogram_ui_1", adjusted_image)
   callModule(mod_tone_curve_server, "tone_curve_ui_1", tone_curve_points, tone_curve)
+  callModule(mod_image_server, "image_ui_1", adjusted_image)
 }
