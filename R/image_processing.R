@@ -16,3 +16,9 @@ apply_tone_curve <- function(image, tone_curve) {
   ton_img[,, 1, 1] <- adjusted * 256
   YCbCrtoRGB(ton_img)
 }
+
+apply_luminance <- function(image, luminance) {
+  image[image < 0] <- 0
+  image[image > 1] <- 1
+  image ^ (10 ^ -luminance)
+}
