@@ -11,7 +11,7 @@ app_ui <- function() {
         sidebarPanel(
           mod_histogram_ui("histogram_ui_1"),
           mod_tone_curve_ui("tone_curve_ui_1"),
-          sliderInput("contrast", "Contrast", -1, 1, 0, step = 0.1),
+          mod_contrast_ui("contrast_ui_1"),
           sliderInput("luminance", "Luminance", -1, 1, 0, step = 0.1),
           selectInput("image_name", "Image", sample_images),
           style = "height: 100vh; overflow-y: auto"

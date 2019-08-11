@@ -1,12 +1,7 @@
 #' @import shiny
 app_server <- function(input, output, session) {
   image <- reactive(load.example(input$image_name))
-  tone_curve_points <- reactive({
-    dy <- 0.1 * input$contrast
-    xs <- c(0, 0.25, 0.75, 1.0)
-    ys <- c(0, 0.25 - dy, 0.75 + dy, 1.0)
-    list(x = xs, y = ys)
-  })
+  tone_curve_points <- callModule(mod_contrast_server, "contrast_ui_1")
   tone_curve <- reactive({
     points <- tone_curve_points()
     splinefun(points$x, points$y)
