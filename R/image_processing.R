@@ -20,5 +20,5 @@ apply_tone_curve <- function(image, tone_curve) {
 apply_luminance <- function(image, luminance) {
   image[image < 0] <- 0
   image[image > 1] <- 1
-  image ^ (10 ^ -luminance)
+  image ^ 10 ^ -luminance
 }
