@@ -11,15 +11,7 @@ app_server <- function(input, output, session) {
     points <- tone_curve_points()
     splinefun(points$x, points$y)
   })
-  tone_image <- reactive({
-    ycb_img <- RGBtoYCbCr(image())
-    luma <- ycb_img[,, 1, 1]
-    func <- tone_curve()
-    adjusted <- luma %>% as.vector %>% `/`(256) %>% func %>% matrix(dim(luma))
-    ton_img <- ycb_img
-    ton_img[,, 1, 1] <- adjusted * 256
-    YCbCrtoRGB(ton_img)
-  })
+  tone_image <- reactive(apply_tone_curve(image(), tone_curve()))
   adjusted_image <- reactive({
     img <- tone_image()
     img[img < 0] <- 0
