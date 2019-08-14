@@ -1,6 +1,6 @@
 #' @import shiny
 app_server <- function(input, output, session) {
-  image <- reactive(load.example(input$image_name))
+  image <- callModule(mod_sample_image_server, "sample_image_ui_1")
   tone_curve_points <- callModule(mod_contrast_server, "contrast_ui_1")
   tone_curve <- reactive({
     points <- tone_curve_points()

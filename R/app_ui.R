@@ -1,5 +1,3 @@
-sample_images <- c("parrots", "hubble", "birds")
-
 #' @import shiny
 app_ui <- function() {
   tagList(
@@ -13,7 +11,7 @@ app_ui <- function() {
           mod_tone_curve_ui("tone_curve_ui_1"),
           mod_contrast_ui("contrast_ui_1"),
           mod_luminance_ui("luminance_ui_1"),
-          selectInput("image_name", "Image", sample_images),
+          mod_sample_image_ui("sample_image_ui_1"),
           style = "height: 100vh; overflow-y: auto"
         ),
         mainPanel(
