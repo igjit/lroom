@@ -24,7 +24,7 @@ app_ui <- function() {
 }
 
 #' @import shiny
-golem_add_external_resources <- function(){
+golem_add_external_resources <- function() {
   addResourcePath(
     "www", system.file("app/www", package = "lroom")
   )
