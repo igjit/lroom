@@ -6,6 +6,7 @@
 #' @import imager
 #' @import dplyr
 #' @import ggplot2
+#' @param ... options
 run_app <- function(...) {
   with_golem_options(
     app = shinyApp(ui = app_ui, server = app_server),
