@@ -1,4 +1,4 @@
-context("app_server.R")
+context("image_processing.R")
 
 test_that("reduce_pixel", {
   image <- imager::boats
