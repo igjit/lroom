@@ -7,7 +7,7 @@
 \usage{
 mod_histogram_ui(id)
 
-mod_histogram_server(input, output, session, adjusted_image)
+mod_histogram_server(input, output, session, image)
 }
 \arguments{
 \item{id}{shiny id}

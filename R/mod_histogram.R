@@ -23,9 +23,9 @@ mod_histogram_ui <- function(id) {
 #' @rdname mod_histogram
 #' @export
 #' @keywords internal
-mod_histogram_server <- function(input, output, session, adjusted_image) {
+mod_histogram_server <- function(input, output, session, image) {
   output$histogram <- renderPlot({
-    color_df <- adjusted_image() %>%
+    color_df <- image() %>%
       reduce_pixel(100) %>%
       as.data.frame %>%
       mutate(color = c("r", "g", "b")[cc])
