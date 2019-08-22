@@ -7,8 +7,9 @@ test_that("reduce_pixel", {
 })
 
 test_that("apply_luminance", {
+  luminance <- . %>% as.vector %>% mean
   image <- imager::boats
-  luminance_before <- image %>% as.vector %>% mean
-  expect_gt(apply_luminance(image, 0.5) %>% as.vector %>% mean, luminance_before)
-  expect_lt(apply_luminance(image, -0.5) %>% as.vector %>% mean, luminance_before)
+  luminance_before <- image %>% luminance
+  expect_gt(apply_luminance(image, 0.5) %>% luminance, luminance_before)
+  expect_lt(apply_luminance(image, -0.5) %>% luminance, luminance_before)
 })
