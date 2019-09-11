@@ -1,5 +1,7 @@
 library(shinytest)
 
+skip_on_covr()
+
 app <- ShinyDriver$new(".")
 
 test_that("contrast_ui works", {
